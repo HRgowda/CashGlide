@@ -5,7 +5,7 @@ const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(403).json({message:"Error1"});
+        return res.status(403).json({message:"Authentication failed."});
     }
 
     const token = authHeader.split(' ')[1];
@@ -15,7 +15,7 @@ const authMiddleware = async (req, res, next) => {
         req.userId = decoded.userId;
         next();
     } catch (err) {
-        return res.status(403).json({message:"Error2"});
+        return res.status(403).json({message:"Invalid user / token."});
     }
 };
 
